@@ -1,0 +1,43 @@
+<h2>Toma de Pedido</h2>
+
+<!-- Mesa -->
+<label>Mesa:</label>
+<select [(ngModel)]="pedido.mesa">
+  <option *ngFor="let m of mesas" [value]="m">Mesa {{ m }}</option>
+</select>
+
+<!-- Mesero -->
+<label>Mesero:</label>
+<select [(ngModel)]="pedido.mesero">
+  <option *ngFor="let ms of meseros" [ngValue]="ms">{{ ms.nombre }}</option>
+</select>
+
+<!-- Cliente -->
+<h3>Datos del Cliente</h3>
+<input type="text" [(ngModel)]="pedido.cliente.nombre_c" placeholder="Nombre del cliente">
+<input type="date" [(ngModel)]="pedido.cliente.f_visita">
+<input type="time" [(ngModel)]="pedido.cliente.h_visita">
+
+<!-- Menú -->
+<h3>Menú</h3>
+<select [(ngModel)]="itemSeleccionado">
+  <option [ngValue]="null">-- Selecciona un platillo --</option>
+  <option *ngFor="let platillo of menu" [ngValue]="platillo">
+    {{ platillo.nombre }} - ${{ platillo.precio }}
+  </option>
+</select>
+<button (click)="agregarItem()">Agregar a la orden</button>
+
+<!-- Orden actual -->
+<h3>Platillos seleccionados</h3>
+<ul>
+  <li *ngFor="let item of pedido.items; let i = index">
+    {{ item.nombre }} - ${{ item.precio }}
+    <button (click)="eliminarItem(i)">Eliminar</button>
+  </li>
+</ul>
+
+<p><strong>Total:</strong> ${{ pedido.total }}</p>
+
+<button (click)="guardarPedido()">Guardar Pedido</button>
+
